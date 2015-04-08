@@ -4,7 +4,7 @@ require 'savon'
 require 'csv'
  
  
-startDate = Date.new(2011, 01, 01)
+startDate = Date.new(2004, 01, 01)
 stopDate = Date.today
 csvHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
                                 'categorie_caz', 'stadiu_procesual', 'obiect', 'data_modificare','nume','calitate_parte','solutie']
