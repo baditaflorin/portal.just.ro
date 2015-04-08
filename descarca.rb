@@ -11,7 +11,7 @@ csvHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
 # csvPartHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
 #                               'categorie_caz', 'stadiu_procesual', 'obiect', 'data_modificare']
 # CITIRE INSTITUTII  ========================
-f = File.open("institutii.txt", "r")
+f = File.open("Files/institutii.txt", "r")
 institutii = [] #
 f.each_line do |line|
         line = line.strip || line
@@ -43,26 +43,26 @@ institutii.each do |inst|
                         dosare = response.body[:cautare_dosare_response][:cautare_dosare_result][:dosar]
                         if  dosare != nil
                                 dosare.each do |dosar|
-                                        # cod adaugat devali pentru a procesa Array-ul parti
-										dosarParteNume = ""
-                                        dosar[:parti][:dosar_parte].each do |parte|
-                                                dosarParteNume += parte[:nume] + "#"
-                                        end
-										# cod adaugat de mine pentru a procesa Array-ul parti calitate_parte
-                                        dosarCalitateParte = ""
-                                        dosar[:parti][:dosar_parte].each do |parte|
-                                                dosarCalitateParte += parte[:calitate_parte] + "#"
-                                        end
-										# cod adaugat de mine pentru a procesa Array-ul Dosar_sedinta
-                                        dosarsedintasolutie = ""
-                                        dosar[:sedinte][:dosar_sedinta].each do |sedinta|
-                                                dosarsedintasolutie += sedinta[:solutie] + "#"
-                                        end
-										# cod adaugat de mine pentru a procesa Array-ul Dosar_sedinta_sumar
-                                        dosarsedintasolutiesumar = ""
-                                        dosar[:sedinte][:dosar_sedinta].each do |sedinta|
-                                                dosarsedintasolutiesumar += sedinta[:solutie_sumar] + "#"
-                                        end
+
+dosarParteNume = ""
+dosarCalitateParte = ""
+if dosar[:parti] && dosar[:parti][:dosar_parte]
+  [dosar[:parti][:dosar_parte]].flatten.each do |parte|
+    dosarParteNume << parte[:nume] + "#"
+    dosarCalitateParte << parte[:calitate_parte] + "#"
+  end
+end
+ 
+dosarsedintasolutie = ""
+dosarsedintasolutiesumar = ""
+if dosar[:sedinte] && dosar[:sedinte][:dosar_sedinta]
+  [dosar[:sedinte][:dosar_sedinta]].flatten.each do |sedinta|
+    dosarsedintasolutie << sedinta[:solutie] + "#"
+    dosarsedintasolutiesumar << sedinta[:solutie_sumar] + "#"
+  end
+end
+								
+									# Acum le punem pe toate intr-un singur loc
 										toPut = [dosar[:numar], dosar[:numar_vechi],
                                                 dosar[:data], dosar[:institutie],
                                                 dosar[:departament],
@@ -70,7 +70,9 @@ institutii.each do |inst|
                                                 dosar[:stadiu_procesual],
                                                 dosar[:obiect].to_s.gsub("\n",' '),
                                                 dosar[:data_modificare],
-                                                dosarParteNume,dosarCalitateParte,dosarsedintasolutie,dosarsedintasolutiesumar]
+                                                dosarParteNume,
+												dosarCalitateParte,
+												dosarsedintasolutie,dosarsedintasolutiesumar]
                                         csv_object << toPut
                                         puts dosar[:numar]
                                 end
