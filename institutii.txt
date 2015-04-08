@@ -1,9 +1,3 @@
-CurteadeApelORADEA 
-CurteadeApelCONSTANTA 
-CurteadeApelSUCEAVA 
-TribunalulBOTOSANI 
-CurteadeApelPLOIESTI 
-CurteadeApelTARGUMURES 
 CurteadeApelGALATI 
 CurteadeApelIASI 
 CurteadeApelPITESTI 
@@ -244,3 +238,9 @@ JudecatoriaSECTORUL4BUCURESTI
 TribunalulTIMIS 
 CurteadeApelBACAU 
 CurteadeApelCLUJ 
+CurteadeApelORADEA 
+CurteadeApelCONSTANTA 
+CurteadeApelSUCEAVA 
+TribunalulBOTOSANI 
+CurteadeApelPLOIESTI 
+CurteadeApelTARGUMURES 
