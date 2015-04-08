@@ -48,8 +48,8 @@ dosarParteNume = ""
 dosarCalitateParte = ""
 if dosar[:parti] && dosar[:parti][:dosar_parte]
   [dosar[:parti][:dosar_parte]].flatten.each do |parte|
-    dosarParteNume << parte[:nume] + "#"
-    dosarCalitateParte << parte[:calitate_parte] + "#"
+    dosarParteNume << parte[:nume] + "#" if parte[:nume]
+    dosarCalitateParte << parte[:calitate_parte] + "#" if parte[:calitate_parte]
   end
 end
  
@@ -57,8 +57,8 @@ dosarsedintasolutie = ""
 dosarsedintasolutiesumar = ""
 if dosar[:sedinte] && dosar[:sedinte][:dosar_sedinta]
   [dosar[:sedinte][:dosar_sedinta]].flatten.each do |sedinta|
-    dosarsedintasolutie << sedinta[:solutie] + "#"
-    dosarsedintasolutiesumar << sedinta[:solutie_sumar] + "#"
+    dosarsedintasolutie << sedinta[:solutie] + "#" if sedinta[:solutie]
+    dosarsedintasolutiesumar << sedinta[:solutie_sumar] + "#" if sedinta[:solutie_sumar]
   end
 end
 								
@@ -72,7 +72,8 @@ end
                                                 dosar[:data_modificare],
                                                 dosarParteNume,
 												dosarCalitateParte,
-												dosarsedintasolutie,dosarsedintasolutiesumar]
+												dosarsedintasolutie,
+												dosarsedintasolutiesumar]
                                         csv_object << toPut
                                         puts dosar[:numar]
                                 end
