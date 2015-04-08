@@ -11,7 +11,7 @@ csvHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
 # csvPartHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
 #                               'categorie_caz', 'stadiu_procesual', 'obiect', 'data_modificare']
 # CITIRE INSTITUTII  ========================
-f = File.open("Files/institutii.txt", "r")
+f = File.open("institutii.txt", "r")
 institutii = [] #
 f.each_line do |line|
         line = line.strip || line
