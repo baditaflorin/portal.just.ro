@@ -54,7 +54,7 @@ institutii.each do |inst|
                            dosar_parti = dosar[1]
                            dosar_sedinte = dosar[3]
                          end
-                         if dosar_parti
+                         if dosar_parti && dosar_parti.class == Array
                            [dosar_parti].flatten.each do |parti|
                              if parti[:dosar_parte]
                                [parti[:dosar_parte]].flatten.each do |parte|
@@ -74,24 +74,26 @@ institutii.each do |inst|
                              dosarsedintasolutiesumar << sedinta[:solutie_sumar] + "#" if sedinta[:solutie_sumar]
                            end
                          end
-                       rescue
-                         binding.pry
-                       end
 
-                       # Acum le punem pe toate intr-un singur loc
-                       toPut = [dosar[:numar], dosar[:numar_vechi],
-                                dosar[:data], dosar[:institutie],
-                                dosar[:departament],
-                                dosar[:categorie_caz],
-                                dosar[:stadiu_procesual],
-                                dosar[:obiect].to_s.gsub("\n",' '),
-                                dosar[:data_modificare],
-                                dosarParteNume,
-                                dosarCalitateParte,
-                                dosarsedintasolutie,
-                                dosarsedintasolutiesumar]
-                       csv_object << toPut
-                       puts dosar[:numar]
+                         # Acum le punem pe toate intr-un singur loc
+                         if dosar.class == Hash
+                           toPut = [dosar[:numar], dosar[:numar_vechi],
+                                    dosar[:data], dosar[:institutie],
+                                    dosar[:departament],
+                                    dosar[:categorie_caz],
+                                    dosar[:stadiu_procesual],
+                                    dosar[:obiect].to_s.gsub("\n",' '),
+                                    dosar[:data_modificare],
+                                    dosarParteNume,
+                                    dosarCalitateParte,
+                                    dosarsedintasolutie,
+                                    dosarsedintasolutiesumar]
+                           csv_object << toPut
+                           puts dosar[:numar]
+                         end
+                       rescue
+                       binding.pry
+                     end
                      end
                      # customers.array.each do |row_array|
                      #     csv_object << row_array  
