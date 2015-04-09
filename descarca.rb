@@ -54,7 +54,7 @@ institutii.each do |inst|
                            dosar_parti = dosar[1]
                            dosar_sedinte = dosar[3]
                          end
-                         if dosar_parti && dosar_parti.class == Array
+                         if dosar_parti && (dosar_parti.class == Array || dosar_parti.class == Hash)
                            [dosar_parti].flatten.each do |parti|
                              if parti[:dosar_parte]
                                [parti[:dosar_parte]].flatten.each do |parte|
