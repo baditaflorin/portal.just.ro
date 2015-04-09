@@ -11,12 +11,12 @@ csvHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
 # csvPartHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
 #                               'categorie_caz', 'stadiu_procesual', 'obiect', 'data_modificare']
 # CITIRE INSTITUTII  ========================
-f = File.open("Files/institutii.txt", "r")
+f = File.open("institutii.txt", "r")
 institutii = [] #
 f.each_line do |line|
         line = line.strip || line
         institutii << line
-        fileName = "Files/" + line + ".csv"
+        fileName = line + ".csv"
         if (!File.exist?(fileName))
                 File.open(fileName, 'w')
         end
@@ -30,7 +30,7 @@ client.operations
  
 #CITIRE DOSARE / INSTITUTIE / DATA START / DATA STOP / INTERVAL 15 ZILE
 institutii.each do |inst|
-        instFile = 'Files/' + inst + '.csv'
+        instFile = inst + '.csv'
         CSV.open(instFile, 'w',
                 :write_headers=> true,
         :headers => csvHeaders ) do |csv_object|
