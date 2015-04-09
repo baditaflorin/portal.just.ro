@@ -4,7 +4,7 @@ require 'savon'
 require 'csv'
  
  
-startDate = Date.new(2004, 01, 01)
+startDate = Date.new(2006, 01, 01)
 stopDate = Date.today
 csvHeaders = ['numar', 'numar_vechi', 'data', 'institutie', 'departament',
                                 'categorie_caz', 'stadiu_procesual', 'obiect', 'data_modificare','nume','calitate_parte','solutie']
@@ -40,18 +40,23 @@ institutii.each do |inst|
                         stop = startDate.strftime('%Y-%m-%d')
                         response = client.call(:cautare_dosare, message:
                                 {institutie: inst, data_start: start, data_stop: stop})
-                        dosare = response.body[:cautare_dosare_response][:cautare_dosare_result][:dosar]
+                        dosare = response.body[:cautare_dosare_response][:cautare_dosare_result][:dosar] 
                         if  dosare != nil
                                 dosare.each do |dosar|
 
 dosarParteNume = ""
 dosarCalitateParte = ""
-if dosar[:parti] && dosar[:parti][:dosar_parte]
-  [dosar[:parti][:dosar_parte]].flatten.each do |parte|
-    dosarParteNume << parte[:nume] + "#" if parte[:nume]
-    dosarCalitateParte << parte[:calitate_parte] + "#" if parte[:calitate_parte]
+if dosar[:parti]
+  [dosar[:parti]].flatten.each do |parti|
+    if parti[:dosar_parte]
+      [parti[:dosar_parte]].flatten.each do |parte|
+        dosarParteNume << parte[:nume] + "#" if parte[:nume]
+        dosarCalitateParte << parte[:calitate_parte] + "#" if parte[:calitate_parte]
+      end
+    end
   end
 end
+								
  
 dosarsedintasolutie = ""
 dosarsedintasolutiesumar = ""
