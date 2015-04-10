@@ -27,9 +27,10 @@ client.operations
 
 #CITIRE DOSARE / INSTITUTIE / DATA START / DATA STOP / INTERVAL 15 ZILE
 institutii.each do |inst|
-  startDate = Date.new(2010, 1, 1)
-  stopDate = Date.new(2010, 1, 9)
-  binding.pry
+  startDate = Date.new(2000, 1, 1)
+  stopDate = Date.today
+  #stopDate = Date.new(2010, 1, 9)
+  # binding.pry
   instFile = inst + '.csv'
   CSV.open(instFile, 'w',
            :write_headers=> true,
@@ -47,7 +48,7 @@ institutii.each do |inst|
 
                      dosarParteNume = ""
                      dosarCalitateParte = ""
-                     begin 
+                   #  begin 
                        if dosar.class == Hash
                          dosar_parti = dosar[:parti]
                          dosar_sedinte = dosar[:sedinte]
@@ -91,10 +92,11 @@ institutii.each do |inst|
                                   dosarsedintasolutiesumar]
                          csv_object << toPut
                          puts dosar[:numar]
+						
                        end
-                     rescue
-                       binding.pry
-                     end
+                   #  rescue
+                      # binding.pry
+                    # end
                    end
                  end
                end
